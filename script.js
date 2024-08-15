@@ -10,7 +10,6 @@ const state = {
   
   
   // Template for the card on screen
-  // elem identifier key=${id} is been misssing on line 50th
   const htmlTaskContent = ({ id, title, description, type, url }) => `
   <div class="col-md-6 col-lg-4 mt-3 task-item" id="${id}">
     <div class='card shadow-sm task__card'>
@@ -42,8 +41,7 @@ const state = {
   </div>
 `;
 
-  
-  // Modal Body on >> Clk of Open Task
+
   const htmlModalContent = ({ id, title, description, url }) => {
     const date = new Date(parseInt(id));
     return `
@@ -61,7 +59,6 @@ const state = {
     `;
   };
   
-  // where we convert json > str (i.e., for local storage)
   const updateLocalStorage = () => {
     localStorage.setItem(
       "task",
@@ -98,7 +95,6 @@ const state = {
       return alert("Please fill all the necessary fiels :-)");
     }
   
-    // taskContents.innerAdjacentHTML(
     taskContents.insertAdjacentHTML(
       "beforeend",
       htmlTaskContent({ ...input, id })
@@ -118,10 +114,8 @@ const state = {
   
   // delete task
   const deleteTask = (e) => {
-    // Ensure we get the event object
     if (!e) e = window.event;
   
-    // Retrieve the ID of the task from the element's attributes
     const targetId = e.target.getAttribute("name");
   
     if (!targetId) {
@@ -129,14 +123,10 @@ const state = {
       return;
     }
   
-    // Filter out the task from state.taskList
     state.taskList = state.taskList.filter(({ id }) => id !== targetId);
-  
-    // Update local storage with the new task list
+
     updateLocalStorage();
   
-    // Find the task element that needs to be removed
-    // Replace '.task-item' with the appropriate selector for the task element
     const taskElement = e.target.closest('.task-item');
   
     if (taskElement) {
@@ -188,7 +178,7 @@ const state = {
   
     const targetId = e.target.id;
     const parentNode = e.target.parentNode.parentNode;
-    // console.log(parentNode.childNodes)
+    
   
     const taskTitle = parentNode.childNodes[3].childNodes[3];
     const taskDescription = parentNode.childNodes[3].childNodes[5];
